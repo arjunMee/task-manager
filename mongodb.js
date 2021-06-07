@@ -34,23 +34,23 @@
 //   }
 // )
 
-const mongodb = require('mongodb')
+// const mongodb = require('mongodb')
 
-const { MongoClient, ObjectID } = mongodb
+// const { MongoClient, ObjectID } = mongodb
 
-const mongoUrl = 'mongodb://127.0.0.1:27017'
+// const mongoUrl = 'mongodb://127.0.0.1:27017'
 
-const dataBaseName = 'task-manager'
+// const dataBaseName = 'task-manager'
 
-MongoClient.connect(mongoUrl, { useNewUrlParser: true }, (error, result) => {
-  if (error) {
-    return console.log('unable to ctrated database')
-  }
+// MongoClient.connect(mongoUrl, { useNewUrlParser: true }, (error, result) => {
+//   if (error) {
+//     return console.log('unable to ctrated database')
+//   }
 
-  console.log(new ObjectID())
+//   console.log(new ObjectID())
 
-  const db = result.db(dataBaseName)
-})
+//   const db = result.db(dataBaseName)
+// })
 
 // // inserting one data
 // db.collection('people').insertOne(
