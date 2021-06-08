@@ -1,35 +1,38 @@
 const express = require('express')
 const User = require('../models/user')
+const auth = require('../middleware/auth')
 
 const router = new express.Router()
 
 router.post('/users', async (req, res) => {
   const user = new User(req.body)
-
   try {
     await user.save()
-    res.status(201).send(user)
+    const token = await user.generateAuthToken()
+    res.status(201).send({ user, token })
   } catch (error) {
     res.status(404).send(error)
   }
-
-  // user
-  //   .save()
-  //   .then(() => {
-  //     res.send(user)
-  //   })
-  //   .catch((error) => {
-  //     res.status(400).send(error)
-  //   })
 })
 
-router.get('/users', async (req, res) => {
+router.post('/users/login', async (req, res) => {
   try {
-    const data = await User.find({})
-    res.send(data)
-  } catch (e) {
-    res.status(500).send(e)
+    const user = await User.findByCredential(req.body.email, req.body.password)
+    const token = await user.generateAuthToken()
+    res.send({ user, token })
+  } catch (error) {
+    res.status(400).send()
   }
+})
+
+router.get('/users/me', auth, async (req, res) => {
+  // try {
+  //   const data = await User.find({})
+  //   res.send(data)
+  // } catch (e) {
+  //   res.status(500).send(e)
+  // }
+  res.send(req.user)
 })
 
 router.get('/users/:id', async (req, res) => {
@@ -54,15 +57,17 @@ router.patch('/users/:id', async (req, res) => {
   }
 
   try {
-    const data = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    })
-
-    if (!data) {
+    // const data = await User.findByIdAndUpdate(req.params.id, req.body, {
+    //   new: true,
+    //   runValidators: true,
+    // })
+    const user = await User.findById(req.params)
+    update.forEach((update) => (user[update] = req.body[update]))
+    await user.save()
+    if (!user) {
       return res.status(500).send({ error: 'invalid updates 2' })
     }
-    res.send(data)
+    res.send(user)
   } catch (e) {
     res.status(500).send(e)
   }

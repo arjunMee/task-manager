@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 
+// const express = require('express')
+// const  q4
+
 const Task = mongoose.model('Task', {
   description: {
     type: String,
@@ -11,5 +14,15 @@ const Task = mongoose.model('Task', {
     default: false,
   },
 })
+
+// userSchema.pre('save', async function (next) {
+//   const user = this
+
+//   if (user.isModified('password')) {
+//     user.password = await bcrypt.hash(user.password, 8)
+//   }
+
+//   next()
+// })
 
 module.exports = Task
