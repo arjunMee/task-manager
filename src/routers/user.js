@@ -32,6 +32,8 @@ router.get('/users/me', auth, async (req, res) => {
   // } catch (e) {
   //   res.status(500).send(e)
   // }
+
+  // auth doing all the stuff for us
   res.send(req.user)
 })
 

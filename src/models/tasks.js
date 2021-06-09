@@ -1,8 +1,5 @@
 const mongoose = require('mongoose')
 
-// const express = require('express')
-// const  q4
-
 const Task = mongoose.model('Task', {
   description: {
     type: String,

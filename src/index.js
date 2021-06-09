@@ -6,15 +6,6 @@ const taskRouter = require('./routers/task')
 const app = express()
 const port = process.env.PORT || 3000
 
-// app.use((req, res, next) => {
-//   console.log(req.method, req.path)
-//   next() //it won't run more if don't specify
-// })
-
-// app.use((req, res, next) => {
-//   res.status(503).send('Sorry for Delay ?? But server is under Maintainace')
-// })
-
 app.use(express.json())
 app.use(userRouter)
 app.use(taskRouter)
